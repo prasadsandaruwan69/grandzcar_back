@@ -1,0 +1,13 @@
+
+cd ~/domains/yourdomain.com/public_html/backend/public
+
+cd public
+
+
+mv storage storage_old_backup
+
+
+ln -s ../storage/app/public storage
+
+
+ls -la storage 
