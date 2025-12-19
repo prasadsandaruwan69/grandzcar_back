@@ -6,6 +6,7 @@ use App\Http\Controllers\VehicleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboadController;
+use App\Http\Controllers\SettingController;
 
 
 /*
@@ -22,6 +23,8 @@ use App\Http\Controllers\DashboadController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
 Route::get('/admin/dashboard', [DashboadController::class, 'index']);
 Route::prefix('vehicles')->group(function () {
     Route::get('/', [VehicleController::class, 'index']);
@@ -46,4 +49,33 @@ Route::prefix('reviews')->group(function () {
     Route::get('/{review}',    [ReviewsController::class, 'show']);
     Route::put('/{review}',    [ReviewsController::class, 'update']);
     Route::delete('/{review}', [ReviewsController ::class, 'destroy']);
+});
+// FIXED: Update these routes to match frontend calls
+Route::get('/fuel-types', [SettingController::class, 'fuels']);
+Route::get('/models', [SettingController::class, 'models']);
+Route::get('/svehicle_type', [SettingController::class, 'vehicle_type']);
+
+Route::get('/transmission', [SettingController::class, 'transmission']);
+
+Route::get('/drive', [SettingController::class, 'drive']);
+
+Route::get('/exterior_color', [SettingController::class, 'exterior_color']);
+
+Route::get('/interior_grade', [SettingController::class, 'interior_grade']);
+
+Route::get('/exterior_grade', [SettingController::class, 'exterior_grade']);
+
+Route::get('/status', [SettingController::class, 'status']);
+
+Route::get('/condition', [SettingController::class, 'condition']);
+
+
+
+
+// These should be grouped or follow REST convention
+Route::prefix('settings')->group(function () {
+    Route::get('/', [SettingController::class, 'index']); // Optional: get all settings
+    Route::post('/', [SettingController::class, 'store']);
+    Route::put('/{id}', [SettingController::class, 'update']);
+    Route::delete('/{id}', [SettingController::class, 'destroy']);
 });
